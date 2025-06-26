@@ -1,0 +1,257 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 6,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-06-26T14:49:24.576Z",
+    "end": "2025-06-26T14:49:53.662Z",
+    "duration": 29086,
+    "testsRegistered": 7,
+    "passPercent": 85.71428571428571,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "744c2f77-9d67-4a99-bf68-9eb4a0b341d5",
+      "title": "",
+      "fullFile": "C:\\Users\\henun\\Sesi11_Hendra\\tests\\test_visual.js",
+      "file": "\\tests\\test_visual.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+          "title": "Swag Labs Test",
+          "fullFile": "C:\\Users\\henun\\Sesi11_Hendra\\tests\\test_visual.js",
+          "file": "\\tests\\test_visual.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Swag Labs Test\"",
+              "fullTitle": "Swag Labs Test \"before each\" hook in \"Swag Labs Test\"",
+              "timedOut": false,
+              "duration": 2692,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('beforeEach() hook: Membuka URL');\nconst options = new chrome.Options();\noptions.addArguments('--incognito'); \ndriver = await new Builder()\n    .forBrowser('chrome')\n    .setChromeOptions(options)\n    .build();\nawait driver.get('https://www.saucedemo.com');",
+              "err": {},
+              "uuid": "3d036e29-54d0-485c-b88e-c0c2568f9882",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after each\" hook in \"Swag Labs Test\"",
+              "fullTitle": "Swag Labs Test \"after each\" hook in \"Swag Labs Test\"",
+              "timedOut": false,
+              "duration": 593,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('afterEach() hook: Menutup driver');\nawait driver.sleep(500);       \nawait driver.quit();",
+              "err": {},
+              "uuid": "07a72fe4-07c2-418e-a00a-a1840033f9be",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Test Case 1 - Web Address",
+              "fullTitle": "Swag Labs Test Test Case 1 - Web Address",
+              "timedOut": false,
+              "duration": 445,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = await driver.getTitle();\nassert.strictEqual(title,'Swag Labs');\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/web/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/web/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/web/current.png\",\"screen/web/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/web/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/web/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/web/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "35b6e8d1-76be-4e8b-be6d-e3774b1c5a61",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 2 - Test Case Negative Login username empty",
+              "fullTitle": "Swag Labs Test Test Case 2 - Test Case Negative Login username empty",
+              "timedOut": false,
+              "duration": 667,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('')\nawait inputPassword.sendKeys('secret_sauce')\nawait buttonLogin.click()\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/login/empty_username/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/lpgin/empty_username/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/login/empty_username/current.png\",\"screen/login/empty_username/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/login/empty_username/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/login/empty_username/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/login/empty_username/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "5152bcf1-3dd5-4993-aa77-37bb6f14a72e",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 3 - Test Case Negative Login username invalid",
+              "fullTitle": "Swag Labs Test Test Case 3 - Test Case Negative Login username invalid",
+              "timedOut": false,
+              "duration": 687,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('standard_us')\nawait inputPassword.sendKeys('secret_sauce')\nawait buttonLogin.click()\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/login/invalid_username/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/login/invalid_username/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/login/invalid_username/current.png\",\"screen/login/invalid_username/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/login/invalid_username/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/login/invalid_username/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/login/invalid_username/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "02cfe220-f1de-4e1d-a19b-695d97ac33e1",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 4 - Test Case Negative Login password invalid",
+              "fullTitle": "Swag Labs Test Test Case 4 - Test Case Negative Login password invalid",
+              "timedOut": false,
+              "duration": 675,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('standard_user')\nawait inputPassword.sendKeys('secret_sau')\nawait buttonLogin.click()\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/login/invalid_password/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/login/invalid_password/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/login/invalid_password/current.png\",\"screen/login/invalid_password/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/login/invalid_password/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/login/invalid_password/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/login/invalid_password/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "a333b540-deda-4cff-92f7-6db1d7a8ec28",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 5 - Test Case Negative Login password empty",
+              "fullTitle": "Swag Labs Test Test Case 5 - Test Case Negative Login password empty",
+              "timedOut": false,
+              "duration": 666,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('standard_user')\nawait inputPassword.sendKeys('')\nawait buttonLogin.click()\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/login/empty_password/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/login/empty_password/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/login/empty_password/current.png\",\"screen/login/empty_password/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/login/empty_password/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/login/empty_password/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/login/empty_password/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "8ed15c8a-72fc-4c92-a250-5bfead86c971",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 6 - Test Case Positive Sort Product A - Z",
+              "fullTitle": "Swag Labs Test Test Case 6 - Test Case Positive Sort Product A - Z",
+              "timedOut": false,
+              "duration": 885,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('problem_user') // problem_user ==> Tampilan produk tidak sesuai\nawait inputPassword.sendKeys('secret_sauce')\nawait buttonLogin.click()\nawait driver.wait(until.urlContains('/inventory.html'), 2000, 'Login failed within 2 seconds.');\nlet pageTitle = await driver.getTitle();\nassert.strictEqual(pageTitle, 'Swag Labs', 'Page title \"Swag Labs\" after successful login.');\nconsole.log('Login berhasil');\n\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/sort/a_to_z/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/sort/a_to_z/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/sort/a_to_z/current.png\",\"screen/sort/a_to_z/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/sort/a_to_z/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/sort/a_to_z/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/sort/a_to_z/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {
+                "message": "AssertionError: Visual Fail\n\n49479 !== 0\n",
+                "estack": "AssertionError [ERR_ASSERTION]: Visual Fail\n\n49479 !== 0\n\n    at Context.<anonymous> (file:///C:/Users/henun/Sesi11_Hendra/tests/test_visual.js:207:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+                "diff": "- 49479\n+ 0\n"
+              },
+              "uuid": "bedc84c8-ce3c-42d2-b54c-51717f305aa9",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 7 - Test Case Positive Sort Product Z - A",
+              "fullTitle": "Swag Labs Test Test Case 7 - Test Case Positive Sort Product Z - A",
+              "timedOut": false,
+              "duration": 886,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let inputUsername = await driver.findElement(page_login.inputUsername)\nlet inputPassword = await driver.findElement(page_login.inputPassword)\nlet buttonLogin = await driver.findElement(page_login.buttonLogin) \nawait inputUsername.sendKeys('standard_user')\nawait inputPassword.sendKeys('secret_sauce')\nawait buttonLogin.click()\nawait driver.wait(until.urlContains('/inventory.html'), 2000, 'Login failed within 2 seconds.');\nlet pageTitle = await driver.getTitle();\nassert.strictEqual(pageTitle, 'Swag Labs', 'Page title \"Swag Labs\" after successful login.');\nconsole.log('Login berhasil');\n\nconst optionZa = await driver.findElement(By.xpath(\"//select[@class='product_sort_container']/option[@value='za']\"));\nawait optionZa.click();\nlet product_sort_container = await driver.findElement(By.xpath('//div[normalize-space()=\"Test.allTheThings() T-Shirt (Red)\"]'));\nlet isProductDisplayed = await product_sort_container.isDisplayed();\nassert.strictEqual(isProductDisplayed, true, 'The \"Test.allTheThings() T-Shirt (Red)\" product should be displayed.');\nconsole.log('Berhasil sort produk \"Name (Z to A)\".');\nlet screenshot = await driver.takeScreenshot();\nlet imgBuffer = Buffer.from(screenshot,\"base64\");\nfs.writeFileSync(\"screen/sort/z_to_a/current.png\", imgBuffer);\nif(!fs.existsSync(\"screen/sort/z_to_a/baseline.png\"))\n    {\n    fs.copyFileSync(\"screen/sort/z_to_a/current.png\",\"screen/sort/z_to_a/baseline.png\");\n    console.log(\"Baseline image saved.\");\n    }\n        let img1 = PNG.sync.read(fs.readFileSync(\"screen/sort/z_to_a/baseline.png\"));\n        let img2 = PNG.sync.read(fs.readFileSync(\"screen/sort/z_to_a/current.png\"));\n        let {width, height} = img1;\n        let diff = new PNG ({ width, height});\n        let numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.6});      \n        fs.writeFileSync(\"screen/sort/z_to_a/diff.png\", PNG.sync.write(diff));          \n        if (numDiffPixels > 0) {\n        console.log(`Ada perbedaan visual! Pixels different: ${numDiffPixels}`);\n        } else {\n        console.log(\"Tidak ada perbedaan visual.\");\n        }\n    assert.strictEqual(numDiffPixels, 0, 'Visual Fail');",
+              "err": {},
+              "uuid": "b0923ea9-2045-44b4-9e4a-ce417594c338",
+              "parentUUID": "ed761b4b-c478-49fb-9c03-94dbb0939e3a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "35b6e8d1-76be-4e8b-be6d-e3774b1c5a61",
+            "5152bcf1-3dd5-4993-aa77-37bb6f14a72e",
+            "02cfe220-f1de-4e1d-a19b-695d97ac33e1",
+            "a333b540-deda-4cff-92f7-6db1d7a8ec28",
+            "8ed15c8a-72fc-4c92-a250-5bfead86c971",
+            "b0923ea9-2045-44b4-9e4a-ce417594c338"
+          ],
+          "failures": [
+            "bedc84c8-ce3c-42d2-b54c-51717f305aa9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 4911,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
